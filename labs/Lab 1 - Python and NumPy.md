@@ -96,7 +96,6 @@ Problem A.4 Compute dot(a.transpose(),b) and dot(a,b.transpose()). Why are
 the results different shapes?
 
 ```python
-# YOUR SOLUTION HERE
 np.dot(a.transpose(),b)
 ```
 
@@ -138,12 +137,14 @@ def random_arrays():
     rows = np.random.randint(3,8)
     cols = np.random.randint(3,8)
     
-    # create a rows x cols matrix with random integers between 1 and 100
-    m = np.random.randint(low = 1, high = 100, size = (rows,cols))
+    # create a rows x cols matrix with random integers between 1 and 10
+    m = np.random.randint(low = 1, high = 10, size = (rows,cols))
     
     print("Matrix:", m)
     print("Sum:", m.sum())
     print("Mean:", m.mean())
+    print("m.sum(axis=0) (sum the columns)", m.sum(axis=0))
+    print("m.sum(axis=1) (sum the rows)", m.sum(axis=1))
     
 ```
 
@@ -165,18 +166,28 @@ array
 ```
 
 ```python
-count = 0
-for row in range(array.shape[0]):
-    for col in range(array.shape[1]):
-        if array[row][col] == 1:
-            count += 1
-
-count
+def count_ones(array):
+    count = 0
+    for row in range(array.shape[0]):
+        for col in range(array.shape[1]):
+            if array[row][col] == 1:
+                count += 1
+    return count
 ```
 
 ```python
+count_ones(array)
+```
+
+```python
+###### ask 
 # np.where() creates a boolean mask where array
-np.where(array == 1, 1, 0).sum()
+def count_ones_where(array):   
+    print(np.where(array == 1, 1, 0).sum())
+```
+
+```python
+count_ones_where(array)
 ```
 
 ## Excercises 8-???
@@ -210,6 +221,7 @@ Problem A.2 Make an array b of size 6 × 4 that has 3 on the leading diagonal an
 everywhere else. (You can do this without loops.)
 
 ```python
+###### Ask
 # create 6 x 4 DataFrame filled with 1's
 b = pd.DataFrame(1, index = range(6), columns = range(4))
 
@@ -254,18 +266,27 @@ df
 ```
 
 ```python
-count = 0
-for index, row in df.iterrows():
-    for i in range(len(row)):
-        if row[i] == 1:
-            count += 1
-            
-count
+def count_ones_df(df):
+    count = 0
+    for index, row in df.iterrows():
+        for i in range(len(row)):
+            if row[i] == 1:
+                count += 1
+    return count
+```
+
+```python
+count_ones_df(df)
 ```
 
 ```python
 # same as Exercise 7 but input is a data frame, not a Numpy array
-np.where(df == 1, 1, 0).sum()
+def count_ones_df_where(df):
+    return np.where(df == 1, 1, 0).sum()
+```
+
+```python
+count_ones_df_where(df)
 ```
 
 ## Exercises 12-14
